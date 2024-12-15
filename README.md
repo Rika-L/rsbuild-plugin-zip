@@ -35,6 +35,7 @@ The `RsbuildPluginScanOptions` interface defines the configuration options for t
   - Type: `string`
   - Default: `'dist'`
   - Example:
+
     ```js
     pluginExample({
       name: "my-project",
@@ -46,6 +47,7 @@ The `RsbuildPluginScanOptions` interface defines the configuration options for t
   - Type: `boolean`
   - Default: `true`
   - Example:
+
     ```js
     pluginExample({
       enabled: false,
@@ -57,6 +59,7 @@ The `RsbuildPluginScanOptions` interface defines the configuration options for t
   - Type: `string`
   - Default: `'development'`
   - Example:
+
     ```js
     pluginExample({
       env: "production",
@@ -68,6 +71,7 @@ The `RsbuildPluginScanOptions` interface defines the configuration options for t
   - Type: `string`
   - Default: `'dist'`
   - Example:
+
     ```js
     pluginExample({
       sourceDir: "src",
@@ -79,6 +83,7 @@ The `RsbuildPluginScanOptions` interface defines the configuration options for t
   - Type: `string`
   - Default: `'zip'`
   - Example:
+
     ```js
     pluginExample({
       outputDir: "release",
