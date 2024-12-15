@@ -1,6 +1,8 @@
 import { defineConfig } from '@rsbuild/core';
-import { pluginExample } from '../src';
+import { RsbuildPluginZip } from '../src';
 
 export default defineConfig({
-  plugins: [pluginExample()],
+  plugins: [RsbuildPluginZip({
+    env:"Dev"
+  })],
 });

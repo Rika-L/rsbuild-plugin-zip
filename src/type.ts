@@ -10,7 +10,7 @@ export interface RsbuildPluginScanOptions {
   /**
    * 环境名称
    */
-  env: string;
+  env?: string;
   /**
    * sourceDir 打包的源文件目录
    */

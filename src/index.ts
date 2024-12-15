@@ -13,7 +13,7 @@ import gradient from 'gradient-string';
  * Print a string to the console, with a gradient color effect.
  * @param {string} str - The string to print.
  */
-function print(str: string) {
+export function riPrint(str: string) {
   console.log(gradient(['cyan', 'pink'])(str));
 }
 
@@ -26,7 +26,7 @@ const initialOptions = {
 };
 
 export const RsbuildPluginZip = (
-  options: RsbuildPluginScanOptions,
+  options?: RsbuildPluginScanOptions,
 ): RsbuildPlugin => {
   const mergeOptions: Required<RsbuildPluginScanOptions> = {
     ...initialOptions,
@@ -42,7 +42,8 @@ export const RsbuildPluginZip = (
         const fileName = `${mergeOptions.name}-${mergeOptions.env}-${dayjs().format('YYYY-MM-DD-HH-mm-ss')}.zip`;
         const outputFile = path.join(outputDir, fileName);
         if (!fs.existsSync(outputDir)) {
-          print(`Generate new directory "${mergeOptions.outputDir}"`);
+          riPrint(`● Could not find directory "${mergeOptions.outputDir}"`);
+          riPrint(`● Generate new directory "${mergeOptions.outputDir}"`);
           fs.mkdirSync(outputDir, { recursive: true });
         }
         const output = fs.createWriteStream(outputFile);
@@ -50,7 +51,7 @@ export const RsbuildPluginZip = (
         archive.pipe(output);
         archive.directory(sourceDir, false);
         archive.finalize();
-        console.log(`Finish zip, file: "${fileName}"`);
+        riPrint(`● Finish zip, file: "${fileName}"`);
       });
     },
   };
