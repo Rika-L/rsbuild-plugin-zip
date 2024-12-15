@@ -1,16 +1,56 @@
+import fs from 'node:fs'
+import path from 'node:path'
+import process from 'node:process'
+import archiver from 'archiver' 
+import dayjs from 'dayjs'
+
 import type { RsbuildPlugin } from '@rsbuild/core';
+import { RsbuildPluginScanOptions } from './type.js'
 
-export type PluginExampleOptions = {
-  foo?: string;
-  bar?: boolean;
+import gradient from 'gradient-string'
+
+/**
+ * Print a string to the console, with a gradient color effect.
+ * @param {string} str - The string to print.
+ */
+function print(str:string){
+  console.log(gradient(['cyan', 'pink'])(str))
+}
+
+
+const initialOptions = {
+  name:"dist",
+  enabled: true,
+  env: 'development',
+  sourceDir: 'dist',
+  outputDir: 'zip',
+}
+
+export const RsbuildPluginZip = (
+  options: RsbuildPluginScanOptions,
+): RsbuildPlugin => {
+  const mergeOptions: Required<RsbuildPluginScanOptions> = { ...initialOptions, ...options }
+  return {
+    name: 'Rsbuild-Plugin-Zip',
+    setup: (api) => {
+      if (!mergeOptions.enabled)
+        return
+      api.onAfterBuild(() => {
+        const sourceDir = path.join(process.cwd(), mergeOptions.sourceDir)
+        const outputDir = path.join(process.cwd(), mergeOptions.outputDir)
+        const fileName = `${mergeOptions.name}-${mergeOptions.env}-${dayjs().format('YYYY-MM-DD-HH-mm-ss')}.zip`
+        const outputFile = path.join(outputDir, fileName)
+        if (!fs.existsSync(outputDir)) {
+          print(`Generate new directory "${mergeOptions.outputDir}"`)
+          fs.mkdirSync(outputDir, { recursive: true })
+        }
+        const output = fs.createWriteStream(outputFile)
+        const archive = archiver('zip', { zlib: { level: 9 } })
+        archive.pipe(output)
+        archive.directory(sourceDir, false)
+        archive.finalize()
+        console.log(`Finish zip, file: "${fileName}"`)
+      })
+    },
+  }
 };
-
-export const pluginExample = (
-  options: PluginExampleOptions = {},
-): RsbuildPlugin => ({
-  name: 'plugin-example',
-
-  setup() {
-    console.log('Hello Rsbuild!', options);
-  },
-});
