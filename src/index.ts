@@ -35,7 +35,10 @@ export const RsbuildPluginZip = (
   return {
     name: 'Rsbuild-Plugin-Zip',
     setup: (api) => {
-      if (!mergeOptions.enabled) return;
+      if (!mergeOptions.enabled) {
+        riPrint(`● Skip zip"`)
+        return
+      };
       api.onAfterBuild(() => {
         const sourceDir = path.join(process.cwd(), mergeOptions.sourceDir);
         const outputDir = path.join(process.cwd(), mergeOptions.outputDir);

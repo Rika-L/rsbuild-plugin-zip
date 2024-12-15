@@ -2,7 +2,9 @@ import { defineConfig } from '@rsbuild/core';
 import { RsbuildPluginZip } from '../src';
 
 export default defineConfig({
-  plugins: [RsbuildPluginZip({
-    env:"Dev"
-  })],
+  plugins: [
+    RsbuildPluginZip({
+      env: 'Dev',
+    }),
+  ],
 });
