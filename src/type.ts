@@ -1,23 +1,22 @@
-
 export interface RsbuildPluginScanOptions {
   /**
    * 项目名
    */
-  name?: string
+  name?: string;
   /**
    * 是否启用插件 默认为 true
    */
-  enabled?: boolean
+  enabled?: boolean;
   /**
    * 环境名称
    */
-  env: string
+  env: string;
   /**
    * sourceDir 打包的源文件目录
    */
-  sourceDir?: string
+  sourceDir?: string;
   /**
    * sourceDir 打包的输出目录
    */
-  outputDir?: string
+  outputDir?: string;
 }
